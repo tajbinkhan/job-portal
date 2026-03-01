@@ -1,17 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { route } from "@/routes/routes";
+import { apiRoutePrefix } from "@/routes/middleware-routes";
+import { apiRoute, route } from "@/routes/routes";
 
 const DASHBOARD_PREFIX = route.private.dashboard; // "/dashboard"
 const LOGIN_PATH = route.protected.login;
 
-export default function middleware(request: NextRequest) {
+async function verifySession(request: NextRequest): Promise<boolean> {
+	try {
+		const response = await fetch(`${apiRoutePrefix}${apiRoute.me}`, {
+			method: "GET",
+			credentials: "include", // Include cookies for authentication
+			headers: {
+				"ngrok-skip-browser-warning": "true"
+			}
+		});
+		return response.ok;
+	} catch {
+		return false;
+	}
+}
+
+export default async function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
-	const token = request.cookies.get("access-token");
 
 	// Redirect authenticated users away from the login page
 	if (pathname === LOGIN_PATH) {
-		if (token) {
+		const isAuthenticated = await verifySession(request);
+		if (isAuthenticated) {
 			const dashboardUrl = request.nextUrl.clone();
 			dashboardUrl.pathname = route.private.dashboard;
 			dashboardUrl.search = "";
@@ -25,8 +41,9 @@ export default function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// Check for access-token cookie — fast edge check
-	if (!token) {
+	// Verify the session with the backend /me endpoint
+	const isAuthenticated = await verifySession(request);
+	if (!isAuthenticated) {
 		const loginUrl = request.nextUrl.clone();
 		loginUrl.pathname = LOGIN_PATH;
 		loginUrl.searchParams.set("from", pathname);

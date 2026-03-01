@@ -1,21 +1,24 @@
 # Interview Frontend
 
-A modern job board and recruitment platform frontend built with **Next.js 16** (App Router), **TypeScript**, and **Tailwind CSS v4**.
+A modern job board and recruitment platform frontend built with **Next.js 16** (App Router),
+**TypeScript**, and **Tailwind CSS v4**.
 
 ---
 
 ## Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| [Next.js 16](https://nextjs.org) | React framework with App Router |
-| [TypeScript](https://www.typescriptlang.org) | Static typing |
-| [Tailwind CSS v4](https://tailwindcss.com) | Utility-first styling |
-| [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://www.radix-ui.com) | Accessible UI components |
-| [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) | Form management and validation |
-| [Axios](https://axios-http.com) | HTTP client with CSRF token handling |
-| [Lucide React](https://lucide.dev) + [React Icons](https://react-icons.github.io/react-icons) | Icon libraries |
-| [pnpm](https://pnpm.io) | Package manager |
+| Technology                                                                                    | Purpose                              |
+| --------------------------------------------------------------------------------------------- | ------------------------------------ |
+| [Next.js 16](https://nextjs.org)                                                              | React framework with App Router      |
+| [React 19](https://react.dev)                                                                 | UI library                           |
+| [TypeScript](https://www.typescriptlang.org)                                                  | Static typing                        |
+| [Tailwind CSS v4](https://tailwindcss.com)                                                    | Utility-first styling                |
+| [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://www.radix-ui.com)                     | Accessible UI components             |
+| [Base UI](https://base-ui.com) (`@base-ui/react`)                                             | Headless UI primitives               |
+| [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev)                       | Form management and validation       |
+| [Axios](https://axios-http.com)                                                               | HTTP client with CSRF token handling |
+| [Lucide React](https://lucide.dev) + [React Icons](https://react-icons.github.io/react-icons) | Icon libraries                       |
+| [pnpm](https://pnpm.io)                                                                       | Package manager                      |
 
 ---
 
@@ -49,16 +52,18 @@ src/
 │   ├── JobDetail/              # Job detail & apply form
 │   └── Jobs/                   # Public jobs listing, filter, sidebar
 ├── validators/                 # Shared Zod validation rules
-└── middleware.ts               # Auth-based route protection
+└── middleware-routes.ts        # Route constants used by Next.js middleware
 ```
 
 ---
 
 ## Features
 
-- **Public pages** — Home with hero, featured jobs, categories, and companies sections; job listings; job detail with apply form
+- **Public pages** — Home with hero, featured jobs, categories, and companies sections; job
+  listings; job detail with apply form
 - **Authentication** — Cookie-based auth (`access-token`), login/logout flow with CSRF protection
-- **Protected dashboard** — Middleware guards all `/dashboard/*` routes; unauthenticated users are redirected to `/login`
+- **Protected dashboard** — Middleware guards all `/dashboard/*` routes; unauthenticated users are
+  redirected to `/login`
 - **Job management** — Create, edit, and list jobs from the admin dashboard
 - **Form validation** — React Hook Form + Zod schemas with field-level error messages
 - **Responsive UI** — Built with Tailwind CSS and accessible Radix UI primitives
@@ -70,16 +75,17 @@ src/
 Create a `.env.local` file in the project root with the following variables:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
+NEXT_PUBLIC_API_URL=http://localhost:8080
 NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
 ```
 
-| Variable | Description |
-|---|---|
-| `NEXT_PUBLIC_API_URL` | Base URL of the backend API |
+| Variable                   | Description                   |
+| -------------------------- | ----------------------------- |
+| `NEXT_PUBLIC_API_URL`      | Base URL of the backend API   |
 | `NEXT_PUBLIC_FRONTEND_URL` | Base URL of this frontend app |
 
-> The app validates these variables at startup using Zod and will exit with an error if any are missing.
+> The app validates these variables at startup using Zod and will exit with an error if any are
+> missing.
 
 ---
 
@@ -111,7 +117,7 @@ NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
    Create a `.env.local` file in the project root and add the required variables:
 
    ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8000
+   NEXT_PUBLIC_API_URL=http://localhost:8080
    NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
    ```
 
@@ -125,12 +131,12 @@ NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
 
 ### Available Commands
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start the development server with hot reload |
-| `pnpm build` | Build the app for production |
+| Command      | Description                                               |
+| ------------ | --------------------------------------------------------- |
+| `pnpm dev`   | Start the development server with hot reload              |
+| `pnpm build` | Build the app for production                              |
 | `pnpm start` | Start the production server (requires `pnpm build` first) |
-| `pnpm lint` | Run ESLint across the codebase |
+| `pnpm lint`  | Run ESLint across the codebase                            |
 
 ---
 
@@ -138,7 +144,9 @@ NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
 
 - Users log in via `POST /auth/login` — the server sets an `access-token` cookie on success
 - `POST /auth/logout` clears the cookie and ends the session
-- The Next.js middleware (`src/middleware.ts`) checks for the `access-token` cookie on every `/dashboard/*` request and redirects unauthenticated users to `/login`
+- Route protection constants are defined in `src/routes/middleware-routes.ts`; Next.js middleware
+  checks for the `access-token` cookie on every `/dashboard/*` request and redirects unauthenticated
+  users to `/login`
 - Already-authenticated users visiting `/login` are automatically redirected to `/dashboard`
 
 ---
@@ -150,3 +158,4 @@ NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
 - [shadcn/ui Docs](https://ui.shadcn.com)
 - [React Hook Form Docs](https://react-hook-form.com)
 - [Zod Docs](https://zod.dev)
+
