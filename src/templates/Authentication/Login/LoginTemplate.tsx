@@ -34,7 +34,8 @@ export function LoginTemplate() {
 		handleSubmit,
 		formState: { errors, isSubmitting }
 	} = useForm<LoginFormData>({
-		resolver: zodResolver(loginSchema)
+		resolver: zodResolver(loginSchema),
+		defaultValues: { email: "admin@quickhire.com", password: "Admin@1234" }
 	});
 
 	async function onSubmit(data: LoginFormData) {
