@@ -77,15 +77,20 @@ Create a `.env.local` file in the project root with the following variables:
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080
 NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
+REVALIDATE_SECRET=your_shared_revalidate_secret_here
 ```
 
-| Variable                   | Description                   |
-| -------------------------- | ----------------------------- |
-| `NEXT_PUBLIC_API_URL`      | Base URL of the backend API   |
-| `NEXT_PUBLIC_FRONTEND_URL` | Base URL of this frontend app |
+| Variable                   | Required | Description                                                                                                      |
+| -------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL`      | ✅       | Base URL of the NestJS backend API                                                                               |
+| `NEXT_PUBLIC_FRONTEND_URL` | ✅       | Base URL of this frontend app                                                                                    |
+| `REVALIDATE_SECRET`        | ✅       | Shared secret used to authenticate on-demand ISR revalidation requests from the backend (`POST /api/revalidate`) |
 
 > The app validates these variables at startup using Zod and will exit with an error if any are
 > missing.
+
+> **`REVALIDATE_SECRET` must match the value set in the backend `.env`.** The backend sends this
+> secret in the `x-revalidate-secret` header when triggering cache invalidation after job mutations.
 
 ---
 
@@ -119,6 +124,7 @@ NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
    ```env
    NEXT_PUBLIC_API_URL=http://localhost:8080
    NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
+   REVALIDATE_SECRET=your_shared_revalidate_secret_here
    ```
 
 4. **Start the development server**
