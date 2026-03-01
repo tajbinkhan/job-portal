@@ -107,7 +107,7 @@ REVALIDATE_SECRET=your_shared_revalidate_secret_here
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/tajbinkhan/job-portal.git
    cd interview-frontend
    ```
 
