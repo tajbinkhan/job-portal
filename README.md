@@ -108,7 +108,7 @@ REVALIDATE_SECRET=your_shared_revalidate_secret_here
 
    ```bash
    git clone https://github.com/tajbinkhan/job-portal.git
-   cd interview-frontend
+   cd job-portal
    ```
 
 2. **Install dependencies**
