@@ -178,7 +178,7 @@ export function JobsListing({ initialCategory = "", filterAssets }: JobsListingP
 						onClear={handleClear}
 						filterAssets={filterAssets}
 					/>
-					<div className="relative min-w-0 flex-1">
+					<div className="relative min-w-35 flex-1">
 						<Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
 						<Input
 							type="text"
@@ -198,47 +198,49 @@ export function JobsListing({ initialCategory = "", filterAssets }: JobsListingP
 							</button>
 						)}
 					</div>
-					<Select
-						value={sort}
-						onValueChange={v => {
-							setSort(v as SortOption);
-							setPage(1);
-						}}
-					>
-						<SelectTrigger size="default" className="h-9 w-auto min-w-35">
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value="newest">Newest first</SelectItem>
-							<SelectItem value="oldest">Oldest first</SelectItem>
-							<SelectItem value="alphabetical">A → Z</SelectItem>
-						</SelectContent>
-					</Select>
-					<div className="border-border flex border">
-						<button
-							onClick={() => setView("grid")}
-							className={cn(
-								"flex items-center justify-center p-2 transition-colors",
-								view === "grid"
-									? "bg-primary text-primary-foreground"
-									: "text-muted-foreground hover:bg-muted"
-							)}
-							aria-label="Grid view"
+					<div className="flex flex-none items-center gap-3">
+						<Select
+							value={sort}
+							onValueChange={v => {
+								setSort(v as SortOption);
+								setPage(1);
+							}}
 						>
-							<LayoutGrid className="size-4" />
-						</button>
-						<button
-							onClick={() => setView("list")}
-							className={cn(
-								"flex items-center justify-center p-2 transition-colors",
-								view === "list"
-									? "bg-primary text-primary-foreground"
-									: "text-muted-foreground hover:bg-muted"
-							)}
-							aria-label="List view"
-						>
-							<List className="size-4" />
-						</button>
+							<SelectTrigger size="default" className="h-9 w-auto min-w-35">
+								<SelectValue />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="newest">Newest first</SelectItem>
+								<SelectItem value="oldest">Oldest first</SelectItem>
+								<SelectItem value="alphabetical">A → Z</SelectItem>
+							</SelectContent>
+						</Select>
+						<div className="border-border flex border">
+							<button
+								onClick={() => setView("grid")}
+								className={cn(
+									"flex items-center justify-center p-2 transition-colors",
+									view === "grid"
+										? "bg-primary text-primary-foreground"
+										: "text-muted-foreground hover:bg-muted"
+								)}
+								aria-label="Grid view"
+							>
+								<LayoutGrid className="size-4" />
+							</button>
+							<button
+								onClick={() => setView("list")}
+								className={cn(
+									"flex items-center justify-center p-2 transition-colors",
+									view === "list"
+										? "bg-primary text-primary-foreground"
+										: "text-muted-foreground hover:bg-muted"
+								)}
+								aria-label="List view"
+							>
+								<List className="size-4" />
+							</button>
+						</div>
 					</div>
 				</div>
 

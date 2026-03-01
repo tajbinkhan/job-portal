@@ -118,6 +118,15 @@ interface ApplicationPayload {
 	coverNote: string;
 }
 
+interface ApplicationsQuery {
+	page?: number;
+	limit?: number;
+	sortBy?: "createdAt";
+	sortOrder?: "asc" | "desc";
+	search?: string;
+	jobId?: string;
+}
+
 type JobFormData = Omit<Job, "id" | "createdAt" | "updatedAt">;
 
 interface JobFilters {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Briefcase, LayoutDashboard, LogOut } from "lucide-react";
+import { Briefcase, FileText, LayoutDashboard, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -12,10 +12,15 @@ import { route } from "@/routes/routes";
 
 const NAV_ITEMS = [
 	{ label: "Overview", href: route.private.dashboard, icon: LayoutDashboard, exact: true },
-	{ label: "Jobs", href: route.private.jobs, icon: Briefcase, exact: false }
+	{ label: "Jobs", href: route.private.jobs, icon: Briefcase, exact: false },
+	{ label: "Applications", href: route.private.applications, icon: FileText, exact: false }
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+	onClose?: () => void;
+}
+
+export function AdminSidebar({ onClose }: AdminSidebarProps) {
 	const pathname = usePathname();
 	const router = useRouter();
 
@@ -42,6 +47,7 @@ export function AdminSidebar() {
 						<Link
 							key={item.href}
 							href={item.href}
+							onClick={onClose}
 							className={cn(
 								"flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors",
 								isActive

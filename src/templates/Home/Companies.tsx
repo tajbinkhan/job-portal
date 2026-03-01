@@ -13,7 +13,7 @@ export function Companies() {
 		<section className="py-12">
 			<div className="mx-auto max-w-7xl px-6">
 				<p className="text-muted-foreground mb-8 text-lg font-normal">Companies we helped grow</p>
-				<div className="flex flex-wrap items-center justify-between gap-12">
+				<div className="flex flex-wrap items-center justify-between gap-8 md:justify-between md:gap-12">
 					{companies.map(({ name, logo }) => (
 						<Image
 							key={name}
@@ -21,7 +21,7 @@ export function Companies() {
 							alt={name}
 							width={120}
 							height={40}
-							className="h-8 object-contain opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+							className="h-8 object-contain"
 						/>
 					))}
 				</div>

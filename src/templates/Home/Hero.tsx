@@ -50,21 +50,22 @@ export function Hero({ locations }: HeroProps) {
 	}
 
 	return (
-		<section className="relative overflow-hidden bg-[#F8F8FD]">
+		<section className="relative overflow-hidden bg-[#F8F8FD] md:bg-[url('/images/hero-pattern.webp')] md:bg-contain md:bg-bottom-right md:bg-no-repeat">
 			<Navbar />
-			<div className="mx-auto flex max-w-7xl flex-col items-center gap-12 px-6 py-20 md:flex-row">
+			<div className="relative mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-10 md:flex-row md:gap-12 md:py-20">
 				{/* Left content */}
 				<div className="flex flex-1 flex-col gap-6">
 					<div className="flex max-w-125 flex-col gap-2">
-						<h1 className="text-foreground font-display text-[72px] leading-tight font-semibold">
+						<h1 className="text-foreground font-display text-[40px] leading-tight font-semibold md:text-[72px]">
 							Discover more than
 						</h1>
 						<div className="relative w-fit">
-							<h1 className="text-accent-blue font-display text-[72px] leading-tight font-semibold">
+							<h1 className="text-accent-blue font-display text-[40px] leading-tight font-semibold md:text-[72px]">
 								5000+ Jobs
 							</h1>
 							{/* Underline decoration */}
 							<svg
+								className="hidden md:block"
 								width="455"
 								height="33"
 								viewBox="0 0 455 33"
@@ -85,10 +86,10 @@ export function Hero({ locations }: HeroProps) {
 					</p>
 
 					{/* Search bar */}
-					<div className="flex flex-col gap-3 bg-white p-4 sm:flex-row">
+					<div className="flex flex-col gap-3 bg-white p-4 shadow-sm">
 						<div className="flex flex-col items-stretch gap-3 md:flex-row">
 							{/* Job Title Input */}
-							<div className="flex flex-1 items-center justify-center gap-4">
+							<div className="flex flex-1 items-center gap-4">
 								<Search className="size-7 transform self-center text-gray-400" />
 								<input
 									type="text"
@@ -101,7 +102,7 @@ export function Hero({ locations }: HeroProps) {
 							</div>
 
 							{/* Location Popover */}
-							<div className="w-64">
+							<div className="w-full md:w-64">
 								<Popover open={open} onOpenChange={setOpen}>
 									<PopoverTrigger asChild>
 										<div
@@ -162,7 +163,7 @@ export function Hero({ locations }: HeroProps) {
 							{/* Search Button */}
 							<Button
 								onClick={handleSearch}
-								className="h-12 bg-indigo-600 px-8 font-medium text-white hover:bg-indigo-700"
+								className="h-12 w-full bg-indigo-600 px-8 font-medium text-white hover:bg-indigo-700 md:w-auto"
 							>
 								Search my job
 							</Button>
@@ -184,17 +185,8 @@ export function Hero({ locations }: HeroProps) {
 					</div>
 				</div>
 
-				{/* Right — hero image placeholder */}
-				<div className="relative hidden flex-1 items-center justify-center md:flex">
-					{/* Decorative background shapes */}
-					<div className="bg-primary/10 absolute top-0 right-8 h-64 w-64 rounded-full" />
-					<div className="bg-primary/20 absolute right-0 bottom-0 h-40 w-40 rounded-full" />
-					<div className="bg-muted relative z-10 h-96 w-80 overflow-hidden">
-						<div className="text-muted-foreground flex h-full w-full items-center justify-center">
-							<span className="text-sm">Hero Image</span>
-						</div>
-					</div>
-				</div>
+				{/* Right — hero images */}
+				<div className="relative hidden flex-1 items-end justify-center self-stretch md:flex"></div>
 			</div>
 		</section>
 	);

@@ -40,18 +40,15 @@ const tagColors: Record<string, string> = {
 
 export function LatestJobs({ jobs }: Props) {
 	return (
-		<section
-			className="bg-light-bg relative overflow-hidden py-20"
-			style={{ clipPath: "polygon(7% 0%, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 7%)" }}
-		>
+		<section className="bg-light-bg relative overflow-hidden py-20 [clip-path:polygon(20%_0%,100%_0,100%_100%,100%_100%,0_100%,0_5%)] md:[clip-path:polygon(7%_0%,100%_0,100%_100%,100%_100%,0_100%,0_7%)]">
 			{/* Right-side decorative pattern */}
 			<div className="pointer-events-none absolute top-0 right-0 h-full w-1/2 select-none">
 				<Image src="/images/pattern.png" alt="" fill className="object-contain object-right" />
 			</div>
 			<div className="relative mx-auto max-w-7xl px-6">
 				{/* Header */}
-				<div className="mb-10 flex items-center justify-between">
-					<h2 className="text-foreground font-display text-[48px] font-semibold">
+				<div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+					<h2 className="text-foreground font-display text-[32px] font-semibold md:text-[48px]">
 						Latest <span className="text-accent-blue">jobs open</span>
 					</h2>
 					<Link

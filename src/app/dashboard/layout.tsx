@@ -3,8 +3,7 @@ import { redirect } from "next/navigation";
 
 import { getMe } from "@/lib/api/auth";
 
-import { AdminSidebar } from "@/layout/AdminSidebar";
-import { DashboardHeader } from "@/layout/DashboardHeader";
+import { DashboardShell } from "@/layout/DashboardShell";
 import { route } from "@/routes/routes";
 
 export default async function DashboardLayout({ children }: GlobalLayoutProps) {
@@ -21,15 +20,5 @@ export default async function DashboardLayout({ children }: GlobalLayoutProps) {
 		redirect("/");
 	}
 
-	return (
-		<div className="flex h-screen overflow-hidden">
-			<AdminSidebar />
-			<div className="flex flex-1 flex-col overflow-auto">
-				<DashboardHeader user={user} />
-
-				{/* Main content */}
-				<main className="flex-1 overflow-auto p-8">{children}</main>
-			</div>
-		</div>
-	);
+	return <DashboardShell user={user}>{children}</DashboardShell>;
 }

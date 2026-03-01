@@ -4,6 +4,7 @@ export const route = {
 	},
 	private: {
 		dashboard: "/dashboard",
+		applications: "/dashboard/applications",
 		jobs: "/dashboard/jobs",
 		createJob: "/dashboard/jobs/create",
 		editJob: (id: string) => `/dashboard/jobs/${id}/edit`

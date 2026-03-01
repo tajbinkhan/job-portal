@@ -57,3 +57,17 @@ export async function submitApplicationApi(
 	const res = await axiosApi.post<ApiResponse<Application>>(apiRoute.applications, payload);
 	return res.data;
 }
+
+export async function getApplicationsApi(
+	query: ApplicationsQuery = {}
+): Promise<ApiResponse<Application[]>> {
+	const params = new URLSearchParams();
+	Object.entries(query).forEach(([k, v]) => {
+		if (v !== undefined && v !== "") params.set(k, String(v));
+	});
+	const qs = params.toString();
+	const res = await axiosApi.get<ApiResponse<Application[]>>(
+		`${apiRoute.applications}${qs ? `?${qs}` : ""}`
+	);
+	return res.data;
+}

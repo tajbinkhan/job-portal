@@ -28,7 +28,7 @@ export async function DashboardJobsTemplate({ page }: Props) {
 	return (
 		<div className="flex flex-col gap-6">
 			{/* Header */}
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 				<div>
 					<h1 className="text-foreground text-2xl font-bold tracking-tight">Jobs</h1>
 					<p className="text-muted-foreground mt-0.5 text-sm">
@@ -36,7 +36,7 @@ export async function DashboardJobsTemplate({ page }: Props) {
 					</p>
 				</div>
 				<Link href={route.private.createJob}>
-					<Button className="bg-indigo-700 hover:bg-indigo-800">
+					<Button className="w-fit bg-indigo-700 hover:bg-indigo-800">
 						<Plus className="size-4" />
 						Add New Job
 					</Button>

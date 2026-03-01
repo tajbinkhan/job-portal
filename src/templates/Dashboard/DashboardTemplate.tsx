@@ -23,14 +23,16 @@ export async function DashboardTemplate() {
 	return (
 		<div className="flex flex-col gap-8">
 			{/* Header */}
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 				<div>
-					<h1 className="font-display text-foreground text-3xl font-semibold">Dashboard</h1>
+					<h1 className="font-display text-foreground text-2xl font-semibold md:text-3xl">
+						Dashboard
+					</h1>
 					<p className="text-muted-foreground mt-1 text-sm">
 						Overview of your job listings and activity.
 					</p>
 				</div>
-				<Button asChild className="bg-indigo-700 hover:bg-indigo-800">
+				<Button asChild className="w-fit bg-indigo-700 hover:bg-indigo-800">
 					<Link href={route.private.createJob} className="flex items-center gap-2">
 						<Plus className="size-4" />
 						Add New Job
@@ -77,7 +79,10 @@ export async function DashboardTemplate() {
 				) : (
 					<div className="divide-border divide-y">
 						{recentJobs.map(job => (
-							<div key={job.id} className="flex items-center justify-between px-6 py-4">
+							<div
+								key={job.id}
+								className="flex flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+							>
 								<div className="flex flex-col gap-0.5">
 									<p className="text-foreground text-sm font-semibold">{job.title}</p>
 									<p className="text-muted-foreground text-xs">

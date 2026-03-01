@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { route } from "@/routes/routes";
 
-const DASHBOARD_PREFIX = "/dashboard";
+const DASHBOARD_PREFIX = route.private.dashboard; // "/dashboard"
 const LOGIN_PATH = route.protected.login;
 
-export function middleware(request: NextRequest) {
+export default function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 	const token = request.cookies.get("access-token");
 
