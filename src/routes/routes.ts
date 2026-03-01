@@ -23,3 +23,9 @@ export const apiRoute = {
 	job: (id: string) => `/jobs/${id}`,
 	applications: "/applications"
 } as const;
+
+/** Next.js internal API routes (same-origin, no CSRF needed from client) */
+export const nextApiRoute = {
+	login: "/api/auth/login",
+	logout: "/api/auth/logout"
+} as const;

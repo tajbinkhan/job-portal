@@ -4,7 +4,8 @@ import { validateString } from "@/validators/commonRule";
 
 export const envSchema = z.object({
 	NEXT_PUBLIC_API_URL: validateString("NEXT_PUBLIC_API_URL"),
-	NEXT_PUBLIC_FRONTEND_URL: validateString("NEXT_PUBLIC_FRONTEND_URL")
+	NEXT_PUBLIC_FRONTEND_URL: validateString("NEXT_PUBLIC_FRONTEND_URL"),
+	REVALIDATE_SECRET: validateString("REVALIDATE_SECRET")
 });
 
 const Env = envSchema.safeParse(process.env);

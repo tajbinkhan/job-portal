@@ -2,17 +2,34 @@
 
 import axiosApi from "@/lib/axios-config";
 
-import { apiRoute } from "@/routes/routes";
+import { apiRoute, nextApiRoute } from "@/routes/routes";
 
 /* ── Auth ─────────────────────────────────────────────────────────────── */
 
 export async function loginApi(email: string, password: string): Promise<ApiResponse<User>> {
-	const res = await axiosApi.post<ApiResponse<User>>(apiRoute.login, { email, password });
-	return res.data;
+	const res = await fetch(nextApiRoute.login, {
+		method: "POST",
+		credentials: "same-origin",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ email, password })
+	});
+
+	const json = (await res.json()) as ApiResponse<User>;
+
+	if (!res.ok) {
+		const message =
+			(json as { message?: string }).message ?? "Invalid credentials. Please try again.";
+		throw new Error(message);
+	}
+
+	return json;
 }
 
 export async function logoutApi(): Promise<void> {
-	await axiosApi.post(apiRoute.logout);
+	await fetch(nextApiRoute.logout, {
+		method: "POST",
+		credentials: "same-origin"
+	});
 }
 
 export async function getMeApi(): Promise<ApiResponse<User>> {

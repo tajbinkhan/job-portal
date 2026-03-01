@@ -7,11 +7,15 @@ const DASHBOARD_PREFIX = route.private.dashboard; // "/dashboard"
 const LOGIN_PATH = route.protected.login;
 
 async function verifySession(request: NextRequest): Promise<boolean> {
+	// The auth cookie lives on the Next.js domain; forward it explicitly to NestJS.
+	const accessToken = request.cookies.get("access-token")?.value;
+	if (!accessToken) return false;
+
 	try {
 		const response = await fetch(`${apiRoutePrefix}${apiRoute.me}`, {
 			method: "GET",
-			credentials: "include", // Include cookies for authentication
 			headers: {
+				Cookie: `access-token=${accessToken}`,
 				"ngrok-skip-browser-warning": "true"
 			}
 		});
