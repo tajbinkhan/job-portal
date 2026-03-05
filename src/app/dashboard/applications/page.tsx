@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
+
 import DashboardApplicationsTemplate from "@/templates/Dashboard/Applications/DashboardApplicationsTemplate";
 
-export const metadata = {
-	title: "Applications | Dashboard"
+export const metadata: Metadata = {
+	title: "Applications | Dashboard",
+	robots: { index: false, follow: false }
 };
 
 interface Props {

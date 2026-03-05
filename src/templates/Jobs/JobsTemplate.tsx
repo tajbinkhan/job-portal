@@ -6,6 +6,7 @@ import { getJobFilters, getJobs } from "@/lib/api/jobs";
 import { Footer } from "@/layout/Footer";
 import { Navbar } from "@/layout/Navbar";
 import { JobsListing } from "@/templates/Jobs/JobsListing";
+import { JobsResults } from "@/templates/Jobs/JobsResults";
 
 function JobsListingSkeleton() {
 	return (
@@ -33,7 +34,11 @@ function JobsListingSkeleton() {
 
 const FALLBACK_FILTERS: JobFilters = { locations: [], employmentTypes: [], categories: [] };
 
-export async function JobsTemplate() {
+interface JobsTemplateProps {
+	searchParams: Record<string, string>;
+}
+
+export async function JobsTemplate({ searchParams }: JobsTemplateProps) {
 	const [allRes, featuredRes, filtersRes] = await Promise.allSettled([
 		getJobs({ limit: 1 }),
 		getJobs({ isFeatured: true, limit: 1 }),
@@ -75,9 +80,11 @@ export async function JobsTemplate() {
 
 			<main className="bg-background flex-1 py-12">
 				<div className="mx-auto max-w-7xl px-6">
-					<Suspense fallback={<JobsListingSkeleton />}>
-						<JobsListing filterAssets={filterAssets} />
-					</Suspense>
+					<JobsListing filterAssets={filterAssets}>
+						<Suspense fallback={<JobsListingSkeleton />}>
+							<JobsResults searchParams={searchParams} />
+						</Suspense>
+					</JobsListing>
 				</div>
 			</main>
 

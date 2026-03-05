@@ -49,8 +49,46 @@ export async function JobDetailTemplate({ id }: JobDetailTemplateProps) {
 	const tagColor = TAG_COLORS[job.category] ?? "bg-gray-100 text-gray-700";
 	const descriptionParagraphs = job.description.split("\n\n").filter(Boolean);
 
+	const APP_URL = process.env.NEXT_PUBLIC_FRONTEND_URL ?? "http://localhost:3000";
+
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@type": "JobPosting",
+		title: job.title,
+		description: job.description,
+		identifier: {
+			"@type": "PropertyValue",
+			name: job.company,
+			value: job.id
+		},
+		datePosted: job.createdAt,
+		validThrough: job.updatedAt ?? job.createdAt,
+		employmentType: job.employmentType?.toUpperCase().replace("-", "_") ?? "FULL_TIME",
+		hiringOrganization: {
+			"@type": "Organization",
+			name: job.company,
+			...(job.companyLogoUrl ? { logo: job.companyLogoUrl } : {})
+		},
+		jobLocation: {
+			"@type": "Place",
+			address: {
+				"@type": "PostalAddress",
+				addressLocality: job.location
+			}
+		},
+		url: `${APP_URL}/jobs/${job.id}`,
+		...(job.isFeatured ? { featured: true } : {}),
+		occupationalCategory: job.category
+	};
+
 	return (
 		<div className="flex min-h-screen flex-col">
+			{/* JSON-LD structured data */}
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+			/>
+
 			<Navbar />
 
 			{/* Hero / Header */}

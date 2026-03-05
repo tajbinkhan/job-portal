@@ -1,7 +1,9 @@
 "use client";
 
+import { motion } from "motion/react";
 import Link from "next/link";
 
+import { fadeIn, fadeInUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/utils";
 
 import {
@@ -52,7 +54,13 @@ export function FeaturedJobs({ jobs }: Props) {
 		<section className="bg-background py-20">
 			<div className="mx-auto max-w-7xl px-6">
 				{/* Header */}
-				<div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+				<motion.div
+					className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+					variants={fadeInUp}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
+				>
 					<h2 className="text-foreground font-display text-[32px] font-semibold md:text-[48px]">
 						Featured <span className="text-accent-blue">jobs</span>
 					</h2>
@@ -62,64 +70,72 @@ export function FeaturedJobs({ jobs }: Props) {
 					>
 						Show all jobs →
 					</Link>
-				</div>
+				</motion.div>
 
 				{/* Carousel */}
-				<Carousel opts={{ align: "start", loop: false }} className="w-full">
-					<CarouselContent className="-ml-4">
-						{jobs.map(job => (
-							<CarouselItem key={job.id} className="basis-[85%] pl-4 sm:basis-1/2 lg:basis-1/4">
-								<Link
-									href={`${route.public.jobs}/${job.id}`}
-									className="border-border hover:border-primary flex h-full flex-col gap-4 border p-6 transition-all hover:shadow-md"
-								>
-									<div className="flex items-start justify-between">
-										<div
-											className={cn(
-												"flex size-12 items-center justify-center text-base font-bold",
-												getLogoColor(job.company)
-											)}
-										>
-											{job.company[0].toUpperCase()}
-										</div>
-										<span className="text-primary border-primary border px-2 py-0.5 text-base font-normal">
-											{job.employmentType}
-										</span>
-									</div>
-
-									<div>
-										<p className="text-foreground text-lg font-semibold">{job.title}</p>
-										<p className="text-muted-foreground mt-0.5 text-base font-normal">
-											{job.company} • {job.location}
-										</p>
-									</div>
-
-									<p className="text-muted-foreground line-clamp-2 text-base font-normal">
-										{job.description}
-									</p>
-
-									<div className="mt-auto flex flex-wrap gap-2">
-										{job.tags.map(tag => (
-											<span
-												key={tag}
+				<motion.div
+					variants={fadeIn}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
+					transition={{ delay: 0.2 }}
+				>
+					<Carousel opts={{ align: "start", loop: false }} className="w-full">
+						<CarouselContent className="-ml-4">
+							{jobs.map(job => (
+								<CarouselItem key={job.id} className="basis-[85%] pl-4 sm:basis-1/2 lg:basis-1/4">
+									<Link
+										href={`${route.public.jobs}/${job.id}`}
+										className="border-border hover:border-primary flex h-full flex-col gap-4 border p-6 transition-all hover:shadow-md"
+									>
+										<div className="flex items-start justify-between">
+											<div
 												className={cn(
-													"rounded-full px-3 py-1 text-xs font-semibold",
-													tagColors[tag] ?? "bg-muted text-muted-foreground"
+													"flex size-12 items-center justify-center text-base font-bold",
+													getLogoColor(job.company)
 												)}
 											>
-												{tag}
+												{job.company[0].toUpperCase()}
+											</div>
+											<span className="text-primary border-primary border px-2 py-0.5 text-base font-normal">
+												{job.employmentType}
 											</span>
-										))}
-									</div>
-								</Link>
-							</CarouselItem>
-						))}
-					</CarouselContent>
-					<div className="mt-6 flex justify-end gap-2">
-						<CarouselPrevious className="static translate-y-0" />
-						<CarouselNext className="static translate-y-0" />
-					</div>
-				</Carousel>
+										</div>
+
+										<div>
+											<p className="text-foreground text-lg font-semibold">{job.title}</p>
+											<p className="text-muted-foreground mt-0.5 text-base font-normal">
+												{job.company} • {job.location}
+											</p>
+										</div>
+
+										<p className="text-muted-foreground line-clamp-2 text-base font-normal">
+											{job.description}
+										</p>
+
+										<div className="mt-auto flex flex-wrap gap-2">
+											{job.tags.map(tag => (
+												<span
+													key={tag}
+													className={cn(
+														"rounded-full px-3 py-1 text-xs font-semibold",
+														tagColors[tag] ?? "bg-muted text-muted-foreground"
+													)}
+												>
+													{tag}
+												</span>
+											))}
+										</div>
+									</Link>
+								</CarouselItem>
+							))}
+						</CarouselContent>
+						<div className="mt-6 flex justify-end gap-2">
+							<CarouselPrevious className="static translate-y-0" />
+							<CarouselNext className="static translate-y-0" />
+						</div>
+					</Carousel>
+				</motion.div>
 			</div>
 		</section>
 	);

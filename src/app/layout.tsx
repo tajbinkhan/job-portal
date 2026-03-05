@@ -22,10 +22,34 @@ const clashDisplay = localFont({
 	variable: "--font-display"
 });
 
+const APP_URL = process.env.NEXT_PUBLIC_FRONTEND_URL ?? "http://localhost:3000";
+const APP_TITLE = "QuickHire";
+const APP_DESCRIPTION =
+	"QuickHire is your go-to platform for discovering and applying to thousands of job opportunities across various categories and locations. Whether you're looking for remote work, part-time gigs, or full-time careers, QuickHire connects you with the best employers in the industry.";
+
 export const metadata: Metadata = {
-	title: "QuickHire - Find Your Dream Job",
-	description:
-		"QuickHire is your go-to platform for discovering and applying to thousands of job opportunities across various categories and locations. Whether you're looking for remote work, part-time gigs, or full-time careers, QuickHire connects you with the best employers in the industry. Start your job search today and take the next step in your career with QuickHire!"
+	metadataBase: new URL(APP_URL),
+	title: {
+		default: `${APP_TITLE} - Find Your Dream Job`,
+		template: `%s | ${APP_TITLE}`
+	},
+	description: APP_DESCRIPTION,
+	keywords: ["jobs", "careers", "hiring", "employment", "job search", "remote work"],
+	robots: { index: true, follow: true },
+	openGraph: {
+		type: "website",
+		siteName: APP_TITLE,
+		title: `${APP_TITLE} - Find Your Dream Job`,
+		description: APP_DESCRIPTION,
+		url: APP_URL,
+		images: [{ url: "/og", width: 1200, height: 630, alt: APP_TITLE }]
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: `${APP_TITLE} - Find Your Dream Job`,
+		description: APP_DESCRIPTION,
+		images: ["/og"]
+	}
 };
 
 export default function RootLayout({

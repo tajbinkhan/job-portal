@@ -37,7 +37,7 @@ export function AdminSidebar({ onClose }: AdminSidebarProps) {
 		<aside className="bg-background border-border flex h-full w-64 shrink-0 flex-col border-r">
 			<div className="border-border flex h-16 items-center border-b px-6">
 				<Link href="/">
-					<Image src="/images/logo.png" alt="QuickHire" width={120} height={36} />
+					<Image src="/images/logo.png" alt="QuickHire" width={120} height={36} priority />
 				</Link>
 			</div>
 			<nav className="flex flex-1 flex-col gap-1 px-3 py-4">

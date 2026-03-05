@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
+
 import { DashboardJobsTemplate } from "@/templates/Dashboard/Jobs/DashboardJobsTemplate";
 
-export const metadata = {
-	title: "Jobs | Dashboard"
+export const metadata: Metadata = {
+	title: "Jobs | Dashboard",
+	robots: { index: false, follow: false }
 };
 
 interface Props {

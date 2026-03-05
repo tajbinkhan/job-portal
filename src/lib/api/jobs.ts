@@ -18,7 +18,7 @@ function buildParams(query: JobsQuery): string {
 export async function getJobs(query: JobsQuery = {}): Promise<ApiResponse<Job[]>> {
 	const qs = buildParams(query);
 	const res = await fetch(`${BASE}/jobs${qs ? `?${qs}` : ""}`, {
-		next: { tags: ["jobs"] }
+		next: { revalidate: 300, tags: ["jobs"] }
 	});
 	if (!res.ok) throw new Error("Failed to fetch jobs");
 	return res.json() as Promise<ApiResponse<Job[]>>;
@@ -26,7 +26,7 @@ export async function getJobs(query: JobsQuery = {}): Promise<ApiResponse<Job[]>
 
 export async function getJob(id: string): Promise<ApiResponse<Job> | null> {
 	const res = await fetch(`${BASE}/jobs/${id}`, {
-		next: { tags: ["jobs", `job-${id}`] }
+		next: { revalidate: 300, tags: ["jobs", `job-${id}`] }
 	});
 	if (res.status === 404) return null;
 	if (!res.ok) throw new Error("Failed to fetch job");
